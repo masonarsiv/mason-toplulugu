@@ -1,0 +1,2599 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MASON TOPLULUĞU — Dijital Arşiv</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root{
+--bg:#070807;
+--panel:#0d100e;
+--panel2:#111511;
+--gold:#b89a58;
+--gold2:#d8bd78;
+--cream:#e9e2d1;
+--muted:#85877e;
+--line:rgba(216,189,120,.17);
+--green:#6f9475;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+background:
+radial-gradient(circle at 20% 10%,rgba(184,154,88,.07),transparent 30%),
+radial-gradient(circle at 90% 60%,rgba(55,82,62,.08),transparent 30%),
+#070807;
+color:var(--cream);
+font-family:Inter,Arial,sans-serif;
+min-height:100vh;
+}
+
+button,input{font:inherit}
+
+button{cursor:pointer}
+
+a{text-decoration:none;color:inherit}
+
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:#080a08}
+::-webkit-scrollbar-thumb{background:#36382f}
+
+/* ==============================
+   KURGU ETİKETİ
+============================== */
+
+.fiction{
+position:fixed;
+right:14px;
+bottom:11px;
+z-index:99999;
+font-size:8px;
+letter-spacing:2px;
+color:rgba(235,226,209,.32);
+pointer-events:none;
+}
+
+/* ==============================
+   GİRİŞ
+============================== */
+
+#loginScreen{
+min-height:100vh;
+display:grid;
+grid-template-columns:1.15fr .85fr;
+overflow:hidden;
+}
+
+.login-left{
+position:relative;
+min-height:100vh;
+overflow:hidden;
+padding:55px 7%;
+border-right:1px solid var(--line);
+}
+
+.login-left:before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+border:1px solid rgba(184,154,88,.06);
+border-radius:50%;
+right:-250px;
+bottom:-260px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+position:relative;
+z-index:2;
+}
+
+.logo-mark{
+width:49px;
+height:49px;
+border:1px solid var(--gold);
+display:grid;
+place-items:center;
+font-family:serif;
+font-size:27px;
+color:var(--gold2);
+}
+
+.logo small{
+display:block;
+font-size:8px;
+letter-spacing:5px;
+color:var(--gold);
+margin-bottom:4px;
+}
+
+.logo strong{
+font-family:Cinzel,serif;
+font-size:17px;
+letter-spacing:3px;
+font-weight:500;
+}
+
+.hero-copy{
+position:relative;
+z-index:2;
+margin-top:105px;
+max-width:590px;
+}
+
+.eyebrow{
+color:var(--gold);
+font-size:9px;
+letter-spacing:4px;
+font-weight:500;
+}
+
+.hero-copy h1{
+font-family:Cinzel,serif;
+font-size:clamp(38px,5vw,72px);
+font-weight:400;
+line-height:1.03;
+margin:20px 0 25px;
+}
+
+.hero-copy h1 span{color:var(--gold2)}
+
+.hero-copy p{
+color:var(--muted);
+font-family:"Libre Baskerville",serif;
+font-size:13px;
+line-height:2;
+max-width:490px;
+}
+
+.hero-meta{
+display:flex;
+gap:35px;
+margin-top:40px;
+}
+
+.hero-meta div{
+padding-left:13px;
+border-left:1px solid var(--gold);
+}
+
+.hero-meta strong{
+display:block;
+font-family:Cinzel,serif;
+font-size:19px;
+font-weight:400;
+color:var(--cream);
+}
+
+.hero-meta span{
+font-size:7px;
+letter-spacing:2px;
+color:var(--muted);
+}
+
+/* PHONE */
+
+.phone{
+position:absolute;
+right:7%;
+bottom:-150px;
+width:245px;
+height:500px;
+border:2px solid #30342f;
+border-radius:38px;
+background:#030403;
+padding:7px;
+box-shadow:0 40px 100px #000;
+transform:rotate(7deg);
+z-index:3;
+}
+
+.phone-screen{
+height:100%;
+border-radius:31px;
+overflow:hidden;
+position:relative;
+background:
+linear-gradient(145deg,#18211b,#080b09 65%,#151109);
+}
+
+.phone-notch{
+width:90px;
+height:21px;
+position:absolute;
+top:7px;
+left:50%;
+transform:translateX(-50%);
+background:#030403;
+border-radius:0 0 15px 15px;
+z-index:5;
+}
+
+.phone-status{
+display:flex;
+justify-content:space-between;
+font-size:7px;
+padding:15px 17px;
+color:#bbb8ad;
+}
+
+.phone-inner{
+padding:50px 24px;
+}
+
+.phone-symbol{
+font-family:serif;
+font-size:42px;
+color:var(--gold2);
+margin-bottom:15px;
+}
+
+.phone-inner h3{
+font-family:Cinzel,serif;
+font-size:18px;
+font-weight:400;
+letter-spacing:2px;
+}
+
+.phone-inner .tiny{
+font-size:6px;
+letter-spacing:3px;
+color:var(--gold);
+margin-top:7px;
+}
+
+.phone-line{
+height:1px;
+background:var(--line);
+margin:25px 0;
+}
+
+.terminal{
+font-family:monospace;
+font-size:7px;
+line-height:2;
+color:#778a79;
+}
+
+.terminal b{color:#bca36a}
+
+.phone-data{
+margin-top:25px;
+border:1px solid rgba(184,154,88,.2);
+padding:12px;
+}
+
+.phone-data span{
+display:block;
+font-size:6px;
+color:#636b62;
+letter-spacing:2px;
+margin-bottom:5px;
+}
+
+.phone-data strong{
+font-family:monospace;
+font-size:10px;
+letter-spacing:2px;
+color:#bca36a;
+}
+
+/* LOGIN RIGHT */
+
+.login-right{
+display:flex;
+align-items:center;
+justify-content:center;
+padding:50px;
+background:rgba(255,255,255,.008);
+}
+
+.login-box{
+width:100%;
+max-width:420px;
+}
+
+.login-box h2{
+font-family:Cinzel,serif;
+font-size:39px;
+font-weight:400;
+line-height:1.15;
+margin:14px 0 12px;
+}
+
+.login-box>p{
+font-size:11px;
+color:var(--muted);
+line-height:1.7;
+margin-bottom:35px;
+}
+
+.field{margin-bottom:18px}
+
+.field label{
+display:block;
+font-size:8px;
+letter-spacing:2px;
+color:#8b8e85;
+margin-bottom:8px;
+}
+
+.field input{
+width:100%;
+height:52px;
+border:1px solid rgba(255,255,255,.1);
+background:#0b0e0c;
+color:var(--cream);
+padding:0 15px;
+outline:none;
+}
+
+.field input:focus{
+border-color:var(--gold);
+}
+
+.fixed-user{
+color:var(--gold2)!important;
+}
+
+.password-wrap{position:relative}
+
+.password-wrap button{
+position:absolute;
+right:0;
+top:0;
+height:52px;
+width:50px;
+border:0;
+background:none;
+color:#777b73;
+}
+
+.gold-btn{
+width:100%;
+height:54px;
+border:1px solid var(--gold);
+background:var(--gold);
+color:#11130f;
+font-size:9px;
+font-weight:700;
+letter-spacing:2px;
+transition:.25s;
+}
+
+.gold-btn:hover{
+background:var(--gold2);
+transform:translateY(-2px);
+}
+
+.outline-btn{
+width:100%;
+height:52px;
+border:1px solid rgba(255,255,255,.11);
+background:transparent;
+color:var(--cream);
+font-size:9px;
+letter-spacing:2px;
+margin-top:14px;
+}
+
+.outline-btn:hover{
+border-color:var(--gold);
+color:var(--gold2);
+}
+
+.login-divider{
+display:flex;
+align-items:center;
+gap:15px;
+margin:23px 0;
+color:#50544d;
+font-size:7px;
+letter-spacing:3px;
+}
+
+.login-divider:before,
+.login-divider:after{
+content:"";
+height:1px;
+background:rgba(255,255,255,.06);
+flex:1;
+}
+
+/* ==============================
+   MODAL
+============================== */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.84);
+backdrop-filter:blur(10px);
+z-index:5000;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.modal.show{display:flex}
+
+.modal-card{
+width:100%;
+max-width:650px;
+max-height:90vh;
+overflow:auto;
+background:#101310;
+border:1px solid var(--line);
+padding:42px;
+position:relative;
+}
+
+.modal-close{
+position:absolute;
+right:18px;
+top:15px;
+width:35px;
+height:35px;
+border:1px solid rgba(255,255,255,.1);
+background:none;
+color:#777;
+font-size:20px;
+}
+
+.modal-card h2{
+font-family:Cinzel,serif;
+font-weight:400;
+font-size:33px;
+margin:12px 0;
+}
+
+.modal-card>p{
+font-size:11px;
+line-height:1.8;
+color:var(--muted);
+margin-bottom:27px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.check{
+display:flex;
+gap:10px;
+font-size:9px;
+color:#73776f;
+line-height:1.6;
+margin:20px 0;
+}
+
+.check input{accent-color:var(--gold)}
+
+/* ==============================
+   PORTAL
+============================== */
+
+#portal{
+display:none;
+min-height:100vh;
+}
+
+#portal.active{display:block}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+width:255px;
+background:#090b09;
+border-right:1px solid var(--line);
+z-index:100;
+padding:28px 24px;
+display:flex;
+flex-direction:column;
+}
+
+.side-logo{
+display:flex;
+align-items:center;
+gap:12px;
+padding-bottom:27px;
+border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.side-logo .mark{
+width:40px;
+height:40px;
+border:1px solid var(--gold);
+display:grid;
+place-items:center;
+font-family:serif;
+font-size:22px;
+color:var(--gold2);
+}
+
+.side-logo small{
+font-size:6px;
+color:var(--gold);
+letter-spacing:4px;
+display:block;
+}
+
+.side-logo strong{
+font-family:Cinzel,serif;
+font-size:11px;
+letter-spacing:2px;
+font-weight:500;
+}
+
+.nav-title{
+font-size:7px;
+letter-spacing:3px;
+color:#4e544d;
+margin:30px 0 11px;
+}
+
+.nav{
+display:flex;
+flex-direction:column;
+gap:3px;
+}
+
+.nav button{
+height:43px;
+text-align:left;
+padding:0 11px;
+border:0;
+border-left:1px solid transparent;
+background:none;
+color:#747a71;
+font-size:8px;
+letter-spacing:1.5px;
+}
+
+.nav button:hover,
+.nav button.active{
+background:rgba(184,154,88,.05);
+border-left-color:var(--gold);
+color:var(--gold2);
+}
+
+.side-user{
+margin-top:auto;
+border-top:1px solid rgba(255,255,255,.06);
+padding-top:18px;
+}
+
+.side-user small{
+font-size:6px;
+letter-spacing:3px;
+color:#555b54;
+}
+
+.side-user strong{
+display:block;
+font-family:Cinzel,serif;
+font-size:14px;
+font-weight:400;
+color:var(--gold2);
+margin:6px 0 15px;
+}
+
+.logout{
+width:100%;
+height:33px;
+background:none;
+border:1px solid rgba(255,255,255,.1);
+color:#777;
+font-size:7px;
+letter-spacing:2px;
+}
+
+/* CONTENT */
+
+.main{
+margin-left:255px;
+min-height:100vh;
+}
+
+.topbar{
+height:72px;
+border-bottom:1px solid rgba(255,255,255,.06);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 45px;
+}
+
+.topbar-left{
+font-size:7px;
+letter-spacing:3px;
+color:#666c63;
+}
+
+.topbar-right{
+display:flex;
+align-items:center;
+gap:18px;
+font-size:7px;
+color:#69746b;
+}
+
+.online{
+color:#75957a;
+}
+
+.content{
+padding:0 45px 80px;
+max-width:1500px;
+}
+
+.section{display:none}
+
+.section.active{display:block}
+
+/* HOME */
+
+.home-hero{
+min-height:570px;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:55px;
+}
+
+.home-copy h1{
+font-family:Cinzel,serif;
+font-size:clamp(42px,5vw,75px);
+line-height:1;
+font-weight:400;
+margin:20px 0;
+}
+
+.home-copy h1 span{color:var(--gold2)}
+
+.home-copy p{
+font-family:"Libre Baskerville",serif;
+font-size:12px;
+line-height:2;
+color:var(--muted);
+max-width:570px;
+}
+
+.hero-buttons{
+display:flex;
+gap:10px;
+margin-top:30px;
+}
+
+.small-btn{
+height:44px;
+padding:0 20px;
+border:1px solid var(--gold);
+background:var(--gold);
+color:#111;
+font-size:8px;
+letter-spacing:2px;
+font-weight:700;
+}
+
+.small-btn.dark{
+background:transparent;
+color:var(--cream);
+border-color:rgba(255,255,255,.13);
+}
+
+.hero-image{
+height:450px;
+position:relative;
+overflow:hidden;
+border:1px solid var(--line);
+}
+
+.hero-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:sepia(.18) saturate(.75) contrast(1.05);
+transition:.5s;
+}
+
+.hero-image:hover img{
+transform:scale(1.04);
+}
+
+.image-caption{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:35px 25px 20px;
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+}
+
+.image-caption span{
+font-size:7px;
+letter-spacing:2px;
+color:var(--gold2);
+}
+
+/* STAT */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
+}
+
+.stat{
+padding:25px;
+border-right:1px solid var(--line);
+}
+
+.stat:last-child{border:0}
+
+.stat strong{
+font-family:Cinzel,serif;
+font-size:28px;
+font-weight:400;
+color:var(--gold2);
+}
+
+.stat span{
+display:block;
+font-size:7px;
+letter-spacing:2px;
+color:#686d65;
+margin-top:5px;
+}
+
+/* FEATURE */
+
+.block-title{
+display:flex;
+align-items:end;
+justify-content:space-between;
+margin:75px 0 25px;
+}
+
+.block-title h2{
+font-family:Cinzel,serif;
+font-weight:400;
+font-size:30px;
+}
+
+.block-title span{
+font-size:7px;
+letter-spacing:2px;
+color:#555b54;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+}
+
+.card{
+background:#0e120f;
+border:1px solid rgba(255,255,255,.06);
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:var(--line);
+}
+
+.card-img{
+height:220px;
+overflow:hidden;
+}
+
+.card-img img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:sepia(.2) saturate(.7);
+transition:.5s;
+}
+
+.card:hover img{transform:scale(1.05)}
+
+.card-body{padding:23px}
+
+.card-meta{
+font-size:7px;
+letter-spacing:2px;
+color:var(--gold);
+}
+
+.card h3{
+font-family:Cinzel,serif;
+font-size:18px;
+font-weight:400;
+margin:11px 0;
+}
+
+.card p{
+font-size:10px;
+line-height:1.8;
+color:var(--muted);
+}
+
+/* ==============================
+   TARİH
+============================== */
+
+.page-heading{
+padding:65px 0 45px;
+border-bottom:1px solid var(--line);
+}
+
+.page-heading h1{
+font-family:Cinzel,serif;
+font-size:52px;
+font-weight:400;
+margin:15px 0;
+}
+
+.page-heading p{
+color:var(--muted);
+font-family:"Libre Baskerville",serif;
+font-size:12px;
+line-height:1.9;
+max-width:750px;
+}
+
+.timeline{
+position:relative;
+padding:50px 0;
+}
+
+.timeline:before{
+content:"";
+position:absolute;
+left:90px;
+top:0;
+bottom:0;
+width:1px;
+background:var(--line);
+}
+
+.timeline-item{
+display:grid;
+grid-template-columns:150px 1fr;
+gap:35px;
+margin-bottom:45px;
+}
+
+.timeline-year{
+font-family:Cinzel,serif;
+font-size:22px;
+color:var(--gold2);
+text-align:right;
+padding-right:28px;
+}
+
+.timeline-content{
+position:relative;
+padding-left:25px;
+}
+
+.timeline-content:before{
+content:"";
+position:absolute;
+left:-5px;
+top:8px;
+width:9px;
+height:9px;
+border:1px solid var(--gold);
+background:#070807;
+transform:rotate(45deg);
+}
+
+.timeline-content h3{
+font-family:Cinzel,serif;
+font-size:22px;
+font-weight:400;
+margin-bottom:9px;
+}
+
+.timeline-content p{
+font-size:11px;
+line-height:1.9;
+color:var(--muted);
+max-width:750px;
+}
+
+/* PEOPLE */
+
+.people-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:40px;
+}
+
+.person{
+background:#0d110e;
+border:1px solid rgba(255,255,255,.06);
+cursor:pointer;
+}
+
+.person-img{
+height:285px;
+overflow:hidden;
+background:#1b1b18;
+}
+
+.person-img img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:grayscale(.25) sepia(.2);
+}
+
+.person-body{
+padding:20px;
+}
+
+.person-body small{
+font-size:7px;
+letter-spacing:2px;
+color:var(--gold);
+}
+
+.person-body h3{
+font-family:Cinzel,serif;
+font-weight:400;
+font-size:16px;
+margin:8px 0;
+}
+
+.person-body p{
+font-size:9px;
+line-height:1.7;
+color:var(--muted);
+}
+
+/* GALLERY */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:35px;
+}
+
+.gallery-item{
+height:280px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.gallery-item.large{
+grid-column:span 2;
+height:350px;
+}
+
+.gallery-item img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.5s;
+filter:sepia(.15) saturate(.75);
+}
+
+.gallery-item:hover img{
+transform:scale(1.05);
+}
+
+.gallery-label{
+position:absolute;
+left:0;
+right:0;
+bottom:0;
+padding:35px 18px 15px;
+background:linear-gradient(transparent,#050605);
+font-size:8px;
+letter-spacing:2px;
+color:var(--gold2);
+}
+
+/* DOCUMENTS */
+
+.documents{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:35px;
+}
+
+.document{
+min-height:270px;
+padding:28px;
+background:
+linear-gradient(135deg,#181914,#0d0f0d);
+border:1px solid var(--line);
+position:relative;
+}
+
+.document:after{
+content:"";
+position:absolute;
+inset:12px;
+border:1px solid rgba(184,154,88,.07);
+pointer-events:none;
+}
+
+.document-no{
+font-family:monospace;
+font-size:8px;
+color:#62665e;
+}
+
+.document-icon{
+font-size:35px;
+color:var(--gold);
+margin:35px 0 20px;
+}
+
+.document h3{
+font-family:Cinzel,serif;
+font-size:17px;
+font-weight:400;
+}
+
+.document p{
+font-size:9px;
+color:var(--muted);
+line-height:1.7;
+margin-top:12px;
+}
+
+/* OATH */
+
+.oath-box{
+margin-top:45px;
+max-width:900px;
+padding:60px;
+border:1px solid var(--line);
+background:
+linear-gradient(rgba(10,12,10,.86),rgba(10,12,10,.94)),
+url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Mystery_of_Masonry_Brought_to_Light_by_the_Gormagons.jpg");
+background-size:cover;
+background-position:center;
+}
+
+.oath-box .ornament{
+text-align:center;
+font-family:serif;
+font-size:32px;
+color:var(--gold);
+}
+
+.oath-box h2{
+text-align:center;
+font-family:Cinzel,serif;
+font-weight:400;
+font-size:31px;
+margin:18px 0 30px;
+}
+
+.oath-box p{
+font-family:"Libre Baskerville",serif;
+font-size:12px;
+line-height:2.1;
+color:#aaa99f;
+margin-bottom:20px;
+}
+
+.laws{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:35px;
+}
+
+.law{
+padding:20px;
+border:1px solid rgba(255,255,255,.06);
+background:rgba(0,0,0,.2);
+}
+
+.law strong{
+display:block;
+font-family:Cinzel,serif;
+font-size:12px;
+color:var(--gold2);
+margin-bottom:7px;
+}
+
+.law span{
+font-size:9px;
+line-height:1.6;
+color:#777c74;
+}
+
+/* PROFILE */
+
+.profile-card{
+margin-top:40px;
+max-width:850px;
+display:grid;
+grid-template-columns:250px 1fr;
+background:#0d110e;
+border:1px solid var(--line);
+}
+
+.profile-side{
+padding:40px;
+border-right:1px solid var(--line);
+text-align:center;
+}
+
+.profile-avatar{
+width:105px;
+height:105px;
+border:1px solid var(--gold);
+margin:auto;
+display:grid;
+place-items:center;
+font-family:Cinzel,serif;
+font-size:32px;
+color:var(--gold2);
+}
+
+.profile-side h3{
+font-family:Cinzel,serif;
+font-weight:400;
+font-size:16px;
+margin-top:18px;
+}
+
+.profile-side small{
+display:block;
+font-size:7px;
+letter-spacing:2px;
+color:#5f655d;
+margin-top:6px;
+}
+
+.profile-info{
+padding:40px;
+}
+
+.info-row{
+padding:15px 0;
+border-bottom:1px solid rgba(255,255,255,.05);
+display:flex;
+justify-content:space-between;
+font-size:9px;
+}
+
+.info-row span{color:#626860}
+.info-row strong{color:var(--gold2);font-weight:400}
+
+/* SEARCH */
+
+.search{
+width:240px;
+height:35px;
+background:#0a0c0a;
+border:1px solid rgba(255,255,255,.08);
+color:var(--cream);
+padding:0 12px;
+font-size:8px;
+outline:none;
+}
+
+.search:focus{border-color:var(--gold)}
+
+/* TOAST */
+
+.toast{
+position:fixed;
+right:20px;
+top:20px;
+z-index:999999;
+max-width:350px;
+background:#141914;
+border:1px solid var(--line);
+border-left:2px solid var(--gold);
+padding:15px 18px;
+font-size:10px;
+line-height:1.6;
+transform:translateX(140%);
+transition:.35s;
+}
+
+.toast.show{transform:translateX(0)}
+
+/* IMAGE VIEWER */
+
+.viewer{
+position:fixed;
+inset:0;
+z-index:10000;
+background:rgba(0,0,0,.93);
+display:none;
+align-items:center;
+justify-content:center;
+padding:40px;
+}
+
+.viewer.show{display:flex}
+
+.viewer img{
+max-width:90vw;
+max-height:85vh;
+object-fit:contain;
+border:1px solid var(--line);
+}
+
+.viewer button{
+position:absolute;
+right:25px;
+top:20px;
+width:40px;
+height:40px;
+background:none;
+border:1px solid rgba(255,255,255,.15);
+color:#aaa;
+font-size:22px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+#loginScreen{grid-template-columns:1fr}
+
+.login-left{
+min-height:600px;
+border-right:0;
+border-bottom:1px solid var(--line);
+}
+
+.phone{
+right:3%;
+}
+
+.sidebar{
+width:220px;
+}
+
+.main{margin-left:220px}
+
+.people-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:800px){
+
+.login-left{padding:35px 6%;}
+
+.hero-copy{margin-top:70px}
+
+.phone{
+transform:scale(.7) rotate(7deg);
+right:-30px;
+bottom:-200px;
+}
+
+.stats{grid-template-columns:repeat(2,1fr)}
+
+.stat:nth-child(2){border-right:0}
+
+.home-hero{
+grid-template-columns:1fr;
+padding:55px 0;
+}
+
+.hero-image{height:380px}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+bottom:auto;
+}
+
+.side-user{display:none}
+
+.nav{
+flex-direction:row;
+overflow-x:auto;
+}
+
+.nav button{min-width:120px}
+
+.main{margin-left:0}
+
+.content{padding:0 20px 60px}
+
+.topbar{padding:0 20px}
+
+.feature-grid,
+.documents{
+grid-template-columns:1fr;
+}
+
+.gallery{
+grid-template-columns:1fr;
+}
+
+.gallery-item.large{
+grid-column:span 1;
+}
+
+.profile-card{
+grid-template-columns:1fr;
+}
+
+.profile-side{
+border-right:0;
+border-bottom:1px solid var(--line);
+}
+
+.laws{
+grid-template-columns:1fr;
+}
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.timeline:before{left:70px}
+
+.timeline-item{
+grid-template-columns:100px 1fr;
+}
+
+.people-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:520px){
+
+.login-right{padding:35px 23px}
+
+.login-box h2{font-size:31px}
+
+.hero-meta{gap:18px}
+
+.hero-meta strong{font-size:16px}
+
+.phone{opacity:.8}
+
+.people-grid{grid-template-columns:1fr}
+
+.home-copy h1{font-size:43px}
+
+.page-heading h1{font-size:38px}
+
+.oath-box{padding:30px 22px}
+
+.search{display:none}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="fiction">KURGU AMAÇLIDIR</div>
+
+<!-- =========================================================
+     LOGIN
+========================================================= -->
+
+<div id="loginScreen">
+
+<section class="login-left">
+
+<div class="logo">
+<div class="logo-mark">∴</div>
+<div>
+<small>THE</small>
+<strong>MASON TOPLULUĞU</strong>
+</div>
+</div>
+
+<div class="hero-copy">
+
+<span class="eyebrow">DİJİTAL ARŞİV • 1717 — GÜNÜMÜZ</span>
+
+<h1>
+Üç asrın<br>
+<span>izlerini</span> keşfedin.
+</h1>
+
+<p>
+Masonluğun tarihine, sembollerine, önemli
+şahsiyetlerine ve yüzyıllar boyunca oluşan
+kültürel mirasına ayrılmış dijital arşiv.
+</p>
+
+<div class="hero-meta">
+<div>
+<strong>1717</strong>
+<span>LONDRA</span>
+</div>
+<div>
+<strong>1723</strong>
+<span>CONSTITUTIONS</span>
+</div>
+<div>
+<strong>300+</strong>
+<span>YIL TARİH</span>
+</div>
+</div>
+
+</div>
+
+<div class="phone">
+
+<div class="phone-screen">
+
+<div class="phone-notch"></div>
+
+<div class="phone-status">
+<span>9:41</span>
+<span>▮▮▮  ◉</span>
+</div>
+
+<div class="phone-inner">
+
+<div class="phone-symbol">∴</div>
+
+<div class="tiny">MASON ARCHIVE SYSTEM</div>
+
+<h3>ARŞİV BAĞLANTISI</h3>
+
+<div class="phone-line"></div>
+
+<div class="terminal">
+<span>&gt; initializing...</span><br>
+<span>&gt; archive node: <b>LDN-1717</b></span><br>
+<span>&gt; historical index: <b>ONLINE</b></span><br>
+<span>&gt; records: <b>3,847</b></span><br>
+<span>&gt; images: <b>1,204</b></span><br>
+<span>&gt; connection: <b>SECURE</b></span><br>
+<span>&gt; status: <b>READY</b></span>
+</div>
+
+<div class="phone-data">
+<span>ACCESS CHANNEL</span>
+<strong>MASON / 000471</strong>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+<section class="login-right">
+
+<div class="login-box">
+
+<span class="eyebrow">ARCHIVE ACCESS / 01</span>
+
+<h2>Arşive<br>Giriş Yap</h2>
+
+<p>
+Dijital arşivin tarihsel kayıtlarına ve
+topluluk alanına erişmek için hesabınızla
+giriş yapın.
+</p>
+
+<form id="loginForm">
+
+<div class="field">
+<label>KULLANICI ADI</label>
+<input class="fixed-user" value="mason" readonly>
+</div>
+
+<div class="field">
+<label>ŞİFRE</label>
+
+<div class="password-wrap">
+<input id="loginPassword" type="password" required placeholder="Şifreniz">
+<button type="button" onclick="toggleLoginPassword()">◉</button>
+</div>
+
+</div>
+
+<button class="gold-btn" type="submit">
+ARŞİVE GİRİŞ YAP &nbsp; →
+</button>
+
+</form>
+
+<div class="login-divider">VEYA</div>
+
+<button class="outline-btn" onclick="openRegister()">
+YENİ HESAP OLUŞTUR
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- REGISTER -->
+
+<div class="modal" id="registerModal">
+
+<div class="modal-card">
+
+<button class="modal-close" onclick="closeRegister()">×</button>
+
+<span class="eyebrow">MEMBER REGISTRATION / 02</span>
+
+<h2>Yeni Üye Kaydı</h2>
+
+<p>
+Arşiv sisteminde kullanılacak profil bilgilerinizi
+oluşturun.
+</p>
+
+<form id="registerForm">
+
+<div class="form-grid">
+
+<div class="field">
+<label>AD</label>
+<input id="firstName" required placeholder="Ad">
+</div>
+
+<div class="field">
+<label>SOYAD</label>
+<input id="lastName" required placeholder="Soyad">
+</div>
+
+</div>
+
+<div class="field">
+<label>KULLANICI ADI</label>
+<input value="mason" class="fixed-user" readonly>
+</div>
+
+<div class="field">
+<label>E-POSTA</label>
+<input id="email" type="email" required placeholder="E-posta adresi">
+</div>
+
+<div class="form-grid">
+
+<div class="field">
+<label>ŞİFRE</label>
+<input id="registerPassword" type="password" required>
+</div>
+
+<div class="field">
+<label>ŞİFRE TEKRAR</label>
+<input id="registerPassword2" type="password" required>
+</div>
+
+</div>
+
+<label class="check">
+<input id="agreement" type="checkbox" required>
+<span>Üyelik bilgilerimin bu tarayıcıdaki yerel profil sistemi için kullanılmasını kabul ediyorum.</span>
+</label>
+
+<button class="gold-btn">
+HESABI OLUŞTUR &nbsp; →
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+     PORTAL
+========================================================= -->
+
+<div id="portal">
+
+<aside class="sidebar">
+
+<div class="side-logo">
+<div class="mark">∴</div>
+<div>
+<small>DIGITAL</small>
+<strong>MASON<br>TOPLULUĞU</strong>
+</div>
+</div>
+
+<div class="nav-title">ARŞİV</div>
+
+<nav class="nav">
+
+<button class="active" onclick="showSection('home',this)">01 &nbsp; ANA SAYFA</button>
+<button onclick="showSection('history',this)">02 &nbsp; TARİH</button>
+<button onclick="showSection('people',this)">03 &nbsp; ŞAHSİYETLER</button>
+<button onclick="showSection('symbols',this)">04 &nbsp; SEMBOLLER</button>
+<button onclick="showSection('gallery',this)">05 &nbsp; GALERİ</button>
+<button onclick="showSection('documents',this)">06 &nbsp; BELGELER</button>
+<button onclick="showSection('oath',this)">07 &nbsp; KARDEŞLİK</button>
+<button onclick="showSection('profile',this)">08 &nbsp; PROFİL</button>
+
+</nav>
+
+<div class="side-user">
+
+<small>ARŞİV ÜYESİ</small>
+
+<strong id="sideName">ÜYE</strong>
+
+<button class="logout" onclick="logout()">OTURUMU KAPAT</button>
+
+</div>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+<div class="topbar-left">
+MASON TOPLULUĞU / DİJİTAL TARİH ARŞİVİ
+</div>
+
+<div class="topbar-right">
+
+<input class="search" id="searchInput" placeholder="Arşivde ara...">
+
+<span class="online">● SİSTEM AKTİF</span>
+
+</div>
+
+</header>
+
+<div class="content">
+
+<!-- HOME -->
+
+<section id="home" class="section active">
+
+<div class="home-hero">
+
+<div class="home-copy">
+
+<span class="eyebrow">ANA ARŞİV / DOSYA 0001</span>
+
+<h1>
+Taşın<br>
+<span>hafızası.</span>
+</h1>
+
+<p>
+Ortaçağ taş ustalarının geleneklerinden,
+18. yüzyılın Londra localarına ve modern
+dönemin küresel masonik örgütlenmelerine
+uzanan uzun bir tarih.
+</p>
+
+<div class="hero-buttons">
+<button class="small-btn" onclick="showSection('history')">TARİHİ KEŞFET</button>
+<button class="small-btn dark" onclick="showSection('people')">ŞAHSİYETLER</button>
+</div>
+
+</div>
+
+<div class="hero-image">
+
+<img
+src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Freemasons_Hall_London_Grand_Temple.jpg"
+alt="Freemasons Hall Grand Temple">
+
+<div class="image-caption">
+<span>FREEMASONS' HALL / LONDON</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<strong>1717</strong>
+<span>İLK GRAND LODGE</span>
+</div>
+
+<div class="stat">
+<strong>1723</strong>
+<span>CONSTITUTIONS</span>
+</div>
+
+<div class="stat">
+<strong>1813</strong>
+<span>İNGİLİZ BİRLİĞİ</span>
+</div>
+
+<div class="stat">
+<strong>300+</strong>
+<span>YILLIK GELENEK</span>
+</div>
+
+</div>
+
+<div class="block-title">
+<h2>Arşivden Seçmeler</h2>
+<span>FEATURED RECORDS</span>
+</div>
+
+<div class="feature-grid">
+
+<article class="card">
+
+<div class="card-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/The_history_of_freemasonry_-_its_legends_and_traditions,_its_chronological_history_(1906)_(14591099738).jpg">
+</div>
+
+<div class="card-body">
+<div class="card-meta">DOSYA / 1723</div>
+<h3>Constitutions</h3>
+<p>
+James Anderson tarafından derlenen 1723 tarihli
+Constitutions, erken dönem modern masonluğun
+kurumsal gelişiminde önemli bir metin oldu.
+</p>
+</div>
+
+</article>
+
+<article class="card">
+
+<div class="card-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Benjamin_Franklin.PNG">
+</div>
+
+<div class="card-body">
+<div class="card-meta">ŞAHSİYET / 1706–1790</div>
+<h3>Benjamin Franklin</h3>
+<p>
+Bilim insanı, yayıncı ve siyasetçi Franklin,
+18. yüzyıl Amerikan masonluğu tarihinde de
+yer alan önemli isimlerden biridir.
+</p>
+</div>
+
+</article>
+
+<article class="card">
+
+<div class="card-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Portrait_of_George_Washington_in_Masonic_regalia_by_William_Joseph_Williams,_1794.jpg">
+</div>
+
+<div class="card-body">
+<div class="card-meta">ŞAHSİYET / 1732–1799</div>
+<h3>George Washington</h3>
+<p>
+Washington'ın masonik üyeliği ve 1794 tarihli
+masonik kıyafetli portresi Amerikan masonluk
+tarihinin en bilinen görsel kayıtları arasındadır.
+</p>
+</div>
+
+</article>
+
+</div>
+
+</section>
+
+<!-- HISTORY -->
+
+<section id="history" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 002 / KRONOLOJİ</span>
+<h1>Masonluğun Tarihi</h1>
+<p>
+Modern masonluğun oluşumuna ilişkin tarihsel kayıtlar
+ortaçağ taş işçiliği geleneklerinden başlayarak 17. ve
+18. yüzyıllardaki localara, 1717 Grand Lodge oluşumuna
+ve 1723 Constitutions'a kadar uzanır.
+</p>
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-year">1646</div>
+<div class="timeline-content">
+<h3>Elias Ashmole</h3>
+<p>
+Elias Ashmole'un Warrington'daki kabulü,
+İngiltere'de spekülatif masonluğa ilişkin en erken
+kayıtlardan biri olarak kabul edilir.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">1717</div>
+<div class="timeline-content">
+<h3>Grand Lodge of England</h3>
+<p>
+24 Haziran 1717'de Londra'daki dört loca bir araya
+gelerek bir Grand Lodge oluşturdu ve Anthony Sayer'i
+ilk Grand Master olarak seçti.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">1723</div>
+<div class="timeline-content">
+<h3>The Constitutions of the Free-Masons</h3>
+<p>
+James Anderson tarafından derlenen Constitutions
+yayımlandı. Metin tarih, Charges, Regulations ve
+yeni Grand Lodge'un yönetim kurallarını içeriyordu.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">1734</div>
+<div class="timeline-content">
+<h3>Philadelphia Baskısı</h3>
+<p>
+1723 Constitutions'ın Amerika'daki ilk baskılarından
+biri Benjamin Franklin tarafından Philadelphia'da
+yayımlandı.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">1751</div>
+<div class="timeline-content">
+<h3>Antients Grand Lodge</h3>
+<p>
+Londra'da farklı uygulamaları savunan rakip bir Grand
+Lodge ortaya çıktı. “Moderns” ve “Antients” olarak
+anılan iki yapı uzun süre ayrı kaldı.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">1813</div>
+<div class="timeline-content">
+<h3>Birleşme</h3>
+<p>
+27 Aralık 1813'te iki İngiliz Grand Lodge birleşerek
+United Grand Lodge of England'ı oluşturdu.
+</p>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-year">2023</div>
+<div class="timeline-content">
+<h3>Constitutions'ın 300. Yılı</h3>
+<p>
+1723 Constitutions'ın yayımlanmasının 300. yılı
+çeşitli sergiler ve etkinliklerle anıldı.
+</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- PEOPLE -->
+
+<section id="people" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 003 / ŞAHSİYETLER</span>
+<h1>Önemli İsimler</h1>
+<p>
+Masonluk tarihinin farklı dönemlerinde görev alan,
+kurumsal gelişime katkıda bulunan veya masonik
+kültürle ilişkilendirilen tarihsel şahsiyetler.
+</p>
+</div>
+
+<div class="people-grid">
+
+<div class="person" onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/Anthony_Sayer.jpg')">
+<div class="person-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Anthony_Sayer.jpg">
+</div>
+<div class="person-body">
+<small>İLK GRAND MASTER</small>
+<h3>Anthony Sayer</h3>
+<p>1717'de oluşturulan ilk Grand Lodge'un ilk Grand Master'ı.</p>
+</div>
+</div>
+
+<div class="person">
+<div class="person-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Benjamin_Franklin.PNG">
+</div>
+<div class="person-body">
+<small>AMERİKA / 18. YÜZYIL</small>
+<h3>Benjamin Franklin</h3>
+<p>Bilim insanı, yayıncı ve Philadelphia masonluk tarihinde önemli bir isim.</p>
+</div>
+</div>
+
+<div class="person">
+<div class="person-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Portrait_of_George_Washington_in_Masonic_regalia_by_William_Joseph_Williams,_1794.jpg">
+</div>
+<div class="person-body">
+<small>AMERİKA / 1732–1799</small>
+<h3>George Washington</h3>
+<p>Virginia masonluğu ve Amerikan tarihindeki en tanınmış mason üyelerden biri.</p>
+</div>
+</div>
+
+<div class="person">
+<div class="person-img">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Prince_Frederik_of_the_Netherlands_in_1817_as_Grand-master_of_the_Dutch_freemasons.jpg">
+</div>
+<div class="person-body">
+<small>HOLLANDA / 19. YÜZYIL</small>
+<h3>Prens Frederik</h3>
+<p>1816'dan 1881'e kadar Hollanda masonlarının Grand Master'ı.</p>
+</div>
+</div>
+
+</div>
+
+<div class="block-title">
+<h2>Kurumsal Gelişim</h2>
+<span>LEADERSHIP & INSTITUTIONS</span>
+</div>
+
+<div class="feature-grid">
+
+<article class="card">
+<div class="card-body">
+<div class="card-meta">1720'LER</div>
+<h3>John Theophilus Desaguliers</h3>
+<p>
+18. yüzyıl İngiliz masonluğunun entelektüel ve
+kurumsal gelişiminde önemli rol oynayan Huguenot
+kökenli din adamı ve bilim insanı.
+</p>
+</div>
+</article>
+
+<article class="card">
+<div class="card-body">
+<div class="card-meta">1723</div>
+<h3>James Anderson</h3>
+<p>
+The Constitutions of the Free-Masons'ın derleyicisi
+olarak bilinir. Eser, 1723'te yayımlandı.
+</p>
+</div>
+</article>
+
+<article class="card">
+<div class="card-body">
+<div class="card-meta">18. YÜZYIL</div>
+<h3>Dükler ve Grand Masters</h3>
+<p>
+18. yüzyılda İngiliz aristokrasisinin bazı üyeleri
+Grand Lodge liderliğinde yer aldı ve kurumun
+kamusal görünürlüğünün artmasına katkıda bulundu.
+</p>
+</div>
+</article>
+
+</div>
+
+</section>
+
+<!-- SYMBOLS -->
+
+<section id="symbols" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 004 / SEMBOLLER</span>
+<h1>Semboller & Anlamlar</h1>
+<p>
+Masonik sembolizm, yapı ustalığına ait araç ve
+imgelerin ahlaki ve felsefi anlamlarla yorumlanması
+üzerinden gelişmiştir.
+</p>
+</div>
+
+<div class="feature-grid" style="margin-top:40px">
+
+<article class="card">
+<div class="card-body">
+<div class="card-symbol" style="font-size:50px;color:#c4a661">◊</div>
+<h3>Gönye</h3>
+<p>
+Yapı ve ölçü fikrinden hareketle ahlaki davranış
+ve düzen düşüncesiyle ilişkilendirilen sembolik
+araçlardan biridir.
+</p>
+</div>
+</article>
+
+<article class="card">
+<div class="card-body">
+<div class="card-symbol" style="font-size:50px;color:#c4a661">⌁</div>
+<h3>Pergel</h3>
+<p>
+Ölçü, sınır ve düzen kavramlarıyla birlikte ele
+alınan önemli masonik araç sembollerinden biridir.
+</p>
+</div>
+</article>
+
+<article class="card">
+<div class="card-body">
+<div class="card-symbol" style="font-size:50px;color:#c4a661">∴</div>
+<h3>Üç Nokta</h3>
+<p>
+Masonik yazım ve görsel gelenekte çeşitli bağlamlarda
+kullanılan üç nokta işareti, topluluk kültürünün
+tanınabilir işaretlerinden biri haline gelmiştir.
+</p>
+</div>
+</article>
+
+</div>
+
+</section>
+
+<!-- GALLERY -->
+
+<section id="gallery" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 005 / GÖRSEL ARŞİV</span>
+<h1>Galeri</h1>
+<p>
+Tarihsel portreler, toplantı mekanları, belgeler
+ve masonik kültürle ilişkili görsel kayıtlar.
+</p>
+</div>
+
+<div class="gallery">
+
+<div class="gallery-item large"
+onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/Freemasons_Hall_London_Grand_Temple.jpg')">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Freemasons_Hall_London_Grand_Temple.jpg">
+<div class="gallery-label">FREEMASONS' HALL — GRAND TEMPLE</div>
+</div>
+
+<div class="gallery-item"
+onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/Benjamin_Franklin.PNG')">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Benjamin_Franklin.PNG">
+<div class="gallery-label">BENJAMIN FRANKLIN</div>
+</div>
+
+<div class="gallery-item"
+onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/Portrait_of_George_Washington_in_Masonic_regalia_by_William_Joseph_Williams,_1794.jpg')">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Portrait_of_George_Washington_in_Masonic_regalia_by_William_Joseph_Williams,_1794.jpg">
+<div class="gallery-label">GEORGE WASHINGTON — 1794</div>
+</div>
+
+<div class="gallery-item"
+onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Mystery_of_Masonry_Brought_to_Light_by_the_Gormagons.jpg')">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Mystery_of_Masonry_Brought_to_Light_by_the_Gormagons.jpg">
+<div class="gallery-label">18. YÜZYIL SATİRİK GRAVÜRÜ</div>
+</div>
+
+<div class="gallery-item"
+onclick="openImage('https://commons.wikimedia.org/wiki/Special:Redirect/file/Masonic_Register_1876.jpg')">
+<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Masonic_Register_1876.jpg">
+<div class="gallery-label">MASONIC REGISTER — 1876</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- DOCUMENTS -->
+
+<section id="documents" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 006 / BELGELER</span>
+<h1>Dijital Belge Arşivi</h1>
+<p>
+Masonluğun tarihsel gelişimiyle ilişkili kitaplar,
+kayıtlar, gravürler ve kurumsal belgeler.
+</p>
+</div>
+
+<div class="documents">
+
+<div class="document">
+<div class="document-no">DOC-1723-001</div>
+<div class="document-icon">▤</div>
+<h3>Constitutions of the Free-Masons</h3>
+<p>
+1723 yılında yayımlanan temel erken dönem
+masonik metinlerinden biri.
+</p>
+</div>
+
+<div class="document">
+<div class="document-no">DOC-1718-004</div>
+<div class="document-icon">▧</div>
+<h3>Old Charges</h3>
+<p>
+1718 tarihli Joseph Hallam el yazması gibi
+erken dönem Charges belgeleri.
+</p>
+</div>
+
+<div class="document">
+<div class="document-no">DOC-1876-019</div>
+<div class="document-icon">▥</div>
+<h3>Masonic Register</h3>
+<p>
+1876 tarihli masonik kayıt örneği ve üyelik
+derecelerini gösteren tarihsel belge.
+</p>
+</div>
+
+<div class="document">
+<div class="document-no">DOC-1813-001</div>
+<div class="document-icon">◫</div>
+<h3>1813 Union</h3>
+<p>
+İki İngiliz Grand Lodge'un birleşmesiyle
+oluşan yeni kurumsal döneme ilişkin kayıt.
+</p>
+</div>
+
+<div class="document">
+<div class="document-no">DOC-1906-007</div>
+<div class="document-icon">▤</div>
+<h3>1906 History</h3>
+<p>
+20. yüzyıl başında yayımlanmış kapsamlı masonluk
+tarihi çalışmalarından bir sayfa.
+</p>
+</div>
+
+<div class="document">
+<div class="document-no">DOC-ARCHIVE-∞</div>
+<div class="document-icon">∴</div>
+<h3>Gizli Arşiv</h3>
+<p>
+Bu bölüm sitedeki kurgusal hikâye ve arşiv
+belgelerinin ilerleyen aşamalarında kullanılacaktır.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- OATH -->
+
+<section id="oath" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 007 / KARDEŞLİK</span>
+<h1>Kardeşlik Yemini</h1>
+<p>
+Arşiv dünyasına ait kurgusal üyelik metni ve
+topluluk kuralları.
+</p>
+</div>
+
+<div class="oath-box">
+
+<div class="ornament">∴</div>
+
+<h2>Kardeşlik Sözü</h2>
+
+<p>
+Topluluğun onurunu, kardeşler arasındaki güveni
+ve bilginin değerini koruyacağıma söz veriyorum.
+</p>
+
+<p>
+Geçmişin mirasına saygı gösterecek, bana emanet
+edilen bilgiyi sorumlulukla taşıyacak ve kendi
+eylemlerimin sonuçlarından sorumlu olacağım.
+</p>
+
+<p>
+Hakikati araştırmayı, dostluğu korumayı ve
+yardıma ihtiyaç duyanlara karşı duyarlı olmayı
+kendi yolumun bir parçası kabul ederim.
+</p>
+
+<div class="laws">
+
+<div class="law">
+<strong>I — DÜRÜSTLÜK</strong>
+<span>Sözün ve davranışın arasında uyum bulunmalıdır.</span>
+</div>
+
+<div class="law">
+<strong>II — SAYGI</strong>
+<span>Farklı düşüncelere ve insanların onuruna saygı gösterilir.</span>
+</div>
+
+<div class="law">
+<strong>III — KARDEŞLİK</strong>
+<span>Topluluk içindeki güven korunur.</span>
+</div>
+
+<div class="law">
+<strong>IV — BİLGİ</strong>
+<span>Bilgi araştırılır, sorgulanır ve sorumlulukla paylaşılır.</span>
+</div>
+
+<div class="law">
+<strong>V — HİZMET</strong>
+<span>Topluma faydalı olmak kişisel gelişimin parçasıdır.</span>
+</div>
+
+<div class="law">
+<strong>VI — ÖLÇÜ</strong>
+<span>Güç ve bilgi kişisel çıkar için kullanılmaz.</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section id="profile" class="section">
+
+<div class="page-heading">
+<span class="eyebrow">DOSYA 008 / ÜYE</span>
+<h1>Üye Profili</h1>
+<p>
+Arşiv sistemindeki kişisel kayıt bilgileriniz.
+</p>
+</div>
+
+<div class="profile-card">
+
+<div class="profile-side">
+
+<div class="profile-avatar">M</div>
+
+<h3 id="profileName">Üye</h3>
+
+<small>ARCHIVE MEMBER</small>
+
+</div>
+
+<div class="profile-info">
+
+<div class="info-row">
+<span>Kullanıcı adı</span>
+<strong>mason</strong>
+</div>
+
+<div class="info-row">
+<span>Ad Soyad</span>
+<strong id="profileFullName">—</strong>
+</div>
+
+<div class="info-row">
+<span>E-posta</span>
+<strong id="profileEmail">—</strong>
+</div>
+
+<div class="info-row">
+<span>Üyelik durumu</span>
+<strong>AKTİF</strong>
+</div>
+
+<div class="info-row">
+<span>Arşiv erişimi</span>
+<strong>LEVEL 01</strong>
+</div>
+
+<div class="info-row">
+<span>Kayıt numarası</span>
+<strong id="profileNumber">M-000471</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+</main>
+
+</div>
+
+<!-- IMAGE VIEWER -->
+
+<div class="viewer" id="viewer" onclick="closeViewer()">
+<button onclick="closeViewer()">×</button>
+<img id="viewerImg" src="" onclick="event.stopPropagation()">
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ============================================
+   LOCAL ACCOUNT SYSTEM
+============================================ */
+
+const loginScreen=document.getElementById("loginScreen");
+const portal=document.getElementById("portal");
+const registerModal=document.getElementById("registerModal");
+const toast=document.getElementById("toast");
+
+function notify(text){
+
+toast.textContent=text;
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},3500);
+
+}
+
+function openRegister(){
+registerModal.classList.add("show");
+}
+
+function closeRegister(){
+registerModal.classList.remove("show");
+}
+
+function toggleLoginPassword(){
+
+const input=document.getElementById("loginPassword");
+
+input.type=input.type==="password"?"text":"password";
+
+}
+
+document.getElementById("registerForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const first=document.getElementById("firstName").value.trim();
+const last=document.getElementById("lastName").value.trim();
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("registerPassword").value;
+const password2=document.getElementById("registerPassword2").value;
+
+if(password!==password2){
+notify("Şifreler eşleşmiyor.");
+return;
+}
+
+if(password.length<4){
+notify("Şifre en az 4 karakter olmalıdır.");
+return;
+}
+
+const account={
+username:"mason",
+firstName:first,
+lastName:last,
+email:email,
+password:password,
+number:"M-"+Math.floor(100000+Math.random()*899999)
+};
+
+localStorage.setItem("masonAccount",JSON.stringify(account));
+
+closeRegister();
+
+document.getElementById("loginPassword").value="";
+
+notify("Üyelik kaydı oluşturuldu. Arşiv erişimi hazır.");
+
+});
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const saved=localStorage.getItem("masonAccount");
+
+if(!saved){
+notify("Bu kullanıcı için henüz bir hesap bulunmuyor.");
+return;
+}
+
+const account=JSON.parse(saved);
+
+const password=document.getElementById("loginPassword").value;
+
+if(password!==account.password){
+notify("Arşiv erişimi reddedildi. Şifreyi kontrol edin.");
+return;
+}
+
+localStorage.setItem("masonLoggedIn","true");
+
+enterPortal(account);
+
+});
+
+function enterPortal(account){
+
+loginScreen.style.display="none";
+portal.classList.add("active");
+
+document.getElementById("sideName").textContent=
+account.firstName+" "+account.lastName;
+
+document.getElementById("profileName").textContent=
+account.firstName+" "+account.lastName;
+
+document.getElementById("profileFullName").textContent=
+account.firstName+" "+account.lastName;
+
+document.getElementById("profileEmail").textContent=
+account.email;
+
+document.getElementById("profileNumber").textContent=
+account.number;
+
+window.scrollTo(0,0);
+
+}
+
+function logout(){
+
+localStorage.removeItem("masonLoggedIn");
+
+portal.classList.remove("active");
+loginScreen.style.display="grid";
+
+document.getElementById("loginPassword").value="";
+
+notify("Oturum kapatıldı.");
+
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+const account=localStorage.getItem("masonAccount");
+const logged=localStorage.getItem("masonLoggedIn");
+
+if(account && logged==="true"){
+enterPortal(JSON.parse(account));
+}
+
+});
+
+/* ============================================
+   NAVIGATION
+============================================ */
+
+function showSection(id,button){
+
+document.querySelectorAll(".section")
+.forEach(section=>{
+section.classList.remove("active");
+});
+
+const target=document.getElementById(id);
+
+if(target){
+target.classList.add("active");
+}
+
+document.querySelectorAll(".nav button")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+if(button){
+button.classList.add("active");
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+/* ============================================
+   IMAGE VIEWER
+============================================ */
+
+function openImage(src){
+
+document.getElementById("viewerImg").src=src;
+document.getElementById("viewer").classList.add("show");
+
+}
+
+function closeViewer(){
+
+document.getElementById("viewer").classList.remove("show");
+
+}
+
+/* ============================================
+   SEARCH
+============================================ */
+
+document.getElementById("searchInput").addEventListener("keydown",function(e){
+
+if(e.key!=="Enter")return;
+
+const query=this.value.toLowerCase().trim();
+
+if(!query)return;
+
+const text=document.body.innerText.toLowerCase();
+
+if(text.includes(query)){
+
+notify("Arşiv kaydı bulundu: "+query);
+
+}else{
+
+notify("Arşivde eşleşen kayıt bulunamadı.");
+
+}
+
+});
+
+/* ============================================
+   PHONE TERMINAL EFFECT
+============================================ */
+
+const terminal=document.querySelector(".terminal");
+
+const originalTerminal=terminal.innerHTML;
+
+setInterval(()=>{
+
+terminal.style.opacity=
+terminal.style.opacity==="0.45"?"1":"0.45";
+
+},1300);
+
+</script>
+
+</body>
+</html>
